@@ -1,0 +1,5 @@
+const db = require('./db-scripts.js')
+const redis = require('./redis-scripts.js')
+db.cloud_site_source(118,'EatEasily')
+db.cloud_site_shipment_client_apps(118,'EatEasily','eateasily','"post_order,menu"',null)
+redis.redis_scripts(118,'eateasily','EatEasily','"post_order,menu"',null)
