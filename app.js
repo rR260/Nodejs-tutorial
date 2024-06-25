@@ -1,5 +1,17 @@
-const db = require('./db-scripts.js')
-const redis = require('./redis-scripts.js')
-db.cloud_site_source(118,'EatEasily')
-db.cloud_site_shipment_client_apps(118,'EatEasily','eateasily','"post_order,menu"',null)
-redis.redis_scripts(118,'eateasily','EatEasily','"post_order,menu"',null)
+http = require('node:http');
+listener = function (request, response) {
+   // Send the HTTP header 
+   // HTTP Status: 200 : OK
+   // Content Type: text/html
+   response.writeHead(200, {'Content-Type': 'text/html'});
+  
+   // Send the response body as "Hello World"
+   response.end('<h2 style="text-align: center;">Hello World Welcome to Nodejs</h2>');
+}
+
+server = http.createServer(listener);
+server.listen(3000);
+
+// Console will print the message
+
+console.log('Server running at http://127.0.0.1:3000/');
