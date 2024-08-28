@@ -1,18 +1,20 @@
-
 {
-    "name": "packages",
-    "version": "1.0.0",
-    "description": "Test Node.js App",
-    "main": "app.js",
-    "scripts": {
-       "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [
-       "test",
-       "nodejs"
-    ],
-    "author": "Riddhi",
-    "dependencies": {
-       "express": "^4.18.2"
-    }
- }
+  "name": "packages",
+  "version": "1.0.0",
+  "description": "Test Node.js App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test",
+    "nodejs",
+    "mysql",
+    "crud"
+  ],
+  "author": "Riddhi",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql": "^2.18.1"
+  }
+}
