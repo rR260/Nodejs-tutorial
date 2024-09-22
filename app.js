@@ -1,11 +1,19 @@
 const mysql = require('mysql');
-const insert = require('./insert-record');
-const readData = require('./read-record');
-const updateUser = require('./update-record');
-const deleteData = require('./delete-record');
+const bodyParser = require('body-parser');
+const insert = require('./models/insert-record');
+const readData = require('./models/read-record');
+const updateUser = require('./models/update-record');
+const deleteData = require('./models/delete-record');
 
 var express = require('express');
 var app = express();
+
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 // connection configurations
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -23,15 +31,17 @@ connection.connect(function (err) {
 });
 
 //cmd line arguments
-var arguments = process.argv;
+// var arguments = process.argv;
 
-if(arguments[2] == "insert"){
-insert.insert(connection , arguments[3],arguments[4],arguments[5] );
-} else if (arguments[2] == "update") {
-updateUser.updateUser(connection,arguments[3],arguments[4],arguments[5],arguments[6]);
-}else if (arguments[2] == "delete") {
-    deleteData.deleteData(connection,arguments[3]);
-}
+// if(arguments[2] == "insert"){
+// insert.insert(connection , arguments[3],arguments[4],arguments[5] );
+// } else if (arguments[2] == "update") {
+// updateUser.updateUser(connection,arguments[3],arguments[4],arguments[5],arguments[6]);
+// }else if (arguments[2] == "delete") {
+//     deleteData.deleteData(connection,arguments[3]);
+// }else {
+//     console.log('Please enter proper input');
+// }
 var data = readData.readData(connection);
 
 app.get('/users', function (req, res) {
@@ -42,6 +52,50 @@ app.get('/users', function (req, res) {
         res.sendStatus(500);
     });
 });
-app.listen(8000, function () {
-  console.log('Example app listening on port 8000!');
+
+app.get('/add', (req, res) => {
+    res.render('add-item'); 
+  });
+
+  app.get('/edit/:id', (req, res) => {
+    const id = req.params.id;
+     readData.readDataById(connection, id).then(result => {
+        console.log(result);
+        res.render('edit',{ result }); 
+    });
+  });
+
+  app.post('/add', async (req, res) => {
+    console.log(req.body);
+    const { name, description, contact } = req.body;
+    insert.insert(connection , name , description,contact );
+    res.redirect('/');
+  });
+
+  app.post('/edit/:id', async (req, res) => {
+    console.log(req.body);
+    const id = req.params.id;
+    console.log(id);
+    const { name, description, contact } = req.body;
+    updateUser.updateUser(connection , id,name , description,contact  );
+    res.redirect('/');
+  });
+
+  app.post('/delete/:id', async (req, res) => {
+    console.log(req.body);
+    const { user_id } = req.body;
+    deleteData.deleteData(connection , user_id );
+    res.redirect('/');
+  });
+
+app.get('/', function (req, res) {
+    readData.readData(connection).then(result => {
+        res.render('ui', { result });
+    }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    });
+});
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
 });
