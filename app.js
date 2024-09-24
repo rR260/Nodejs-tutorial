@@ -64,6 +64,11 @@ app.get('/add', (req, res) => {
         res.render('edit',{ result }); 
     });
   });
+  app.get('/delete/:id', (req, res) => {
+    const id = req.params.id;
+    deleteData.deleteData(connection,id);
+    res.redirect('/');
+  });
 
   app.post('/add', async (req, res) => {
     console.log(req.body);
@@ -78,13 +83,6 @@ app.get('/add', (req, res) => {
     console.log(id);
     const { name, description, contact } = req.body;
     updateUser.updateUser(connection , id,name , description,contact  );
-    res.redirect('/');
-  });
-
-  app.post('/delete/:id', async (req, res) => {
-    console.log(req.body);
-    const { user_id } = req.body;
-    deleteData.deleteData(connection , user_id );
     res.redirect('/');
   });
 
