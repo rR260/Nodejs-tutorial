@@ -10,11 +10,11 @@
     <% result.forEach(user => { %>
         <form action="/edit/<%=user.user_id %>" method="POST">
             <label for="name">User Name:</label>
-            <input type="text" name="name" id="name" value="<%= user.user_name %>" required><br>
+            <input type="text" name="name" id="name" value="<%= user.user_name %>" required pattern="[A-Za-z\s]+" title="Only characters are allowed."><br>
             <label for="description">User Specification:</label>
-            <input type="text" name="description" id="description" value="<%= user.user_specification %>"><br>
+            <input type="text" name="description" id="description" value="<%= user.user_specification %>" pattern="[A-Za-z\s]+" title="Only characters are allowed."><br>
             <label for="contact">User Contact:</label>
-            <input type="text" name="contact" id="contact" value="<%= user.user_contact %>"><br>
+            <input type="text" name="contact" id="contact" value="<%= user.user_contact %>" pattern="\d{10}" title="Only 10 numbers are allowed."><br>
             <button type="submit">Update User</button>
         </form>
     <% }); %>

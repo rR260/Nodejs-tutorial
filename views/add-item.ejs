@@ -9,11 +9,11 @@
     <h1>Add New User</h1>
     <form action="/add" method="POST">
         <label for="name">User Name:</label>
-        <input type="text" name="name" id="name" required><br>
+        <input type="text" name="name" id="name" required pattern="[A-Za-z\s]+" title="Only characters are allowed."><br>
         <label for="description">User Description:</label>
-        <input type="text" name="description" id="description"><br>
+        <input type="text" name="description" id="description" required pattern="[A-Za-z\s]+" title="Only characters are allowed."><br>
         <label for="conatct">User Contact:</label>
-        <input type="text" name="contact" id="contact"><br>
+        <input type="text" name="contact" id="contact" required   pattern="\d{10}"  title="Only 10 numbers are allowed."><br>
         <button type="submit">Add Item</button>
     </form>
     <a href="/">Back to List</a>
