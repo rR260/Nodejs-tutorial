@@ -30,18 +30,6 @@ connection.connect(function (err) {
     console.log('You are now connected with mysql database...')
 });
 
-//cmd line arguments
-// var arguments = process.argv;
-
-// if(arguments[2] == "insert"){
-// insert.insert(connection , arguments[3],arguments[4],arguments[5] );
-// } else if (arguments[2] == "update") {
-// updateUser.updateUser(connection,arguments[3],arguments[4],arguments[5],arguments[6]);
-// }else if (arguments[2] == "delete") {
-//     deleteData.deleteData(connection,arguments[3]);
-// }else {
-//     console.log('Please enter proper input');
-// }
 var data = readData.readData(connection);
 
 app.get('/users', function (req, res) {
