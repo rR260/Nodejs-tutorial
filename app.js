@@ -35,8 +35,9 @@ var data = readData.readData(connection);
 app.get('/users', function (req, res) {
     readData.readData(connection).then(result => {
         res.json(result);
+        return res;
     }).catch(err => {
-        console.log(err);
+        console.log("error",err);
         res.sendStatus(500);
     });
 });
@@ -85,3 +86,5 @@ app.get('/', function (req, res) {
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
+
+module.exports = app;
